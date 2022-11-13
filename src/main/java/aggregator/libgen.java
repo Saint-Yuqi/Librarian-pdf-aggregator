@@ -17,10 +17,16 @@ public class libgen {
         print("Fetching %s...",url);
 
         Document doc = Jsoup.connect(url).get();
-        Elements links = doc.select("a");
-        Elements media = doc.select("[src]");
-        Elements imports = doc.select("link[href]");
-
+        Elements links = doc.select("a"); //The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
+        Elements media = doc.select("[src]");//The required src attribute specifies the path (URL) to the image.
+        Elements imports = doc.select("link[href]");//defines a hyperlink. It has the following syntax:
+        /*
+        Element image = document.select("img").first();
+        String url = image.absUrl("src");
+        url = http://www.example.com/images/chicken.jpg
+        equivalently
+        String url = image.attr("abs:src");
+        */
         print("\nMedia: (%d)", media.size());
         for (Element src : media) {
             if (src.normalName().equals("img"))
@@ -47,11 +53,12 @@ public class libgen {
     }
 
     private static Object trim(String s, int width) {
-        if (s.length() > width)
-            return s.substring(0, width-1) + ".";
-        else
+        if (s.length() > width) {
+            return s.substring(0, width - 1) + ".";
+        }
+        else {
             return s;
-
+        }
     }
 
 }
