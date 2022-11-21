@@ -12,20 +12,17 @@ public class Book implements searchable{
     private int year;
     private int size;
 
-    public Book(String author, String bookName, String language, URI download, URI doi, int year,int size) {
+    public Book(String author, String bookName, String language) {
         this.author = author;
         this.bookName = bookName;
         this.language = language;
-        this.download = download;
-        this.doi = doi;
-        this.year = year;
-        this.size = size;
     }
 
 
     public String getAuthor() {
         return author;
     }
+
 
     public String getBookName() {
         return bookName;

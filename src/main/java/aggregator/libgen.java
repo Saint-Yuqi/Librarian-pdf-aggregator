@@ -4,6 +4,8 @@ package aggregator;
 import java.io.BufferedInputStream;
 import java.io.File;
 
+import java.io.FileOutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 /* The IOException occurs while reading a particular file or trying to access the file using the wrong path. */
@@ -18,16 +20,19 @@ import org.jsoup.nodes.Element; //https://jsoup.org/apidocs/org/jsoup/nodes/Elem
 import org.jsoup.select.Elements; //https://jsoup.org/apidocs/org/jsoup/select/Elements.html
 
 public class libgen {
-    public static void main(String[] args) throws IOException {
-        //String url = "https://libgen.li";
-        //TODO: read about http GET request vs POST request
-        //TODO: read about Jetbrains decompiler
-        //TODO: find out how the Jsoup works (travel through return calls)
-        String url = "https://libgen.rocks/ads.php?md5=8094d914791e8774c27f2815cb9fec4c";
-        System.out.println("Fetching ..." + url);
-        //data("req", "algebra").timeout(30000)
-        Document doc = Jsoup.connect(url).get();
 
+    public void getDownload() throws IOException {
+        String url = "https://libgen.li";
+        System.out.println("Fetching ..." + url);
+        Document doc = Jsoup.connect(url)
+                .data("req", "Algebra")
+                .timeout(3000)
+                .post();
+
+        Elements hyperlinks = doc.getElementsByTag("a");
+        for (Element hyperlink : hyperlinks ) {
+            System.out.printf(" * a:%s (%s)\n " , hyperlink.attr("abs:href")  , hyperlink.text());
+        }
 
         Elements links = doc.getElementsByTag("a"); //The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
         System.out.println("\nLinks: " + links.size());
@@ -36,16 +41,25 @@ public class libgen {
         for (Element link : links) {
             if (link.text().equalsIgnoreCase("get")) {
                 System.out.printf(" * a:%s (%s)\n " , link.attr("abs:href")  , link.text());
+                try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
+                     FileOutputStream fileOutputStream = new FileOutputStream("deep.pdf")) {
+                    byte dataBuffer[] = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                        fileOutputStream.write(dataBuffer, 0, bytesRead);
+                    }
+                } catch (IOException e) {
+                    // handle exception
+                }
             }
 
-         }
-
-
-
-
-
-
-
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        //String url = "https://libgen.li";
+        //TODO: read about http GET request vs POST request
+        //TODO: read about Jetbrains decompiler
+        //TODO: find out how the Jsoup works (travel through return calls)
 
     }
 }

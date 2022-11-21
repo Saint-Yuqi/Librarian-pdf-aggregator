@@ -1,22 +1,36 @@
 package aggregator;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
 public class Main {
-    public static void main(String[] args) {
-        String path = "https://libgen.rocks/get.php?md5=8094d914791e8774c27f2815cb9fec4c&key=UJXIK5CS9S9SR16F";
-        try (BufferedInputStream in = new BufferedInputStream(new URL(path).openStream());
-             FileOutputStream fileOutputStream = new FileOutputStream("deep.pdf")) {
-            byte dataBuffer[] = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                fileOutputStream.write(dataBuffer, 0, bytesRead);
+    public static void main(String[] args) throws IOException {
+        String url = "https://libgen.li";
+        System.out.println("Fetching ..." + url);
+
+        Document doc = (Document) Jsoup.connect(url)
+                .data("req","Linear Algebra and its Applications")
+                .data("req","Biswa Nath Datta")
+                .get();
+
+
+        Elements links = doc.getElementsByTag("a"); //The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
+        System.out.println("\nLinks: " + links.size());
+
+
+        for (Element link : links) {
+            if (link.text().equalsIgnoreCase("Linear Algebra and its Applications")) {
+                System.out.printf(" * a:%s (%s)\n " , link.attr("abs:href")  , link.text());
             }
-        } catch (IOException e) {
-            // handle exception
+
         }
+
     }
 }
