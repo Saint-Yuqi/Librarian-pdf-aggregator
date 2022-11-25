@@ -12,17 +12,21 @@ public class Book implements searchable{
     private int year;
     private int size;
 
-    public Book(String author, String bookName, String language) {
+    public void setAuthor(String author) {
         this.author = author;
-        this.bookName = bookName;
-        this.language = language;
     }
+    public void setMD5(String MD5) {
+        this.MD5 = MD5;
+    }
+
+   public void setBookName(String bookName) {
+        this.bookName = bookName;
+   }
 
 
     public String getAuthor() {
         return author;
     }
-
 
     public String getBookName() {
         return bookName;
@@ -32,7 +36,6 @@ public class Book implements searchable{
         return language;
     }
 
-
     public URI getDownload() {
         return download;
     }
@@ -40,9 +43,12 @@ public class Book implements searchable{
     public String getMD5() {
         return MD5;
     }
+
+    @Override
     public int getYear() {
-        return year;
+        return 0;
     }
+
 
     public int getSize() {
         return size;

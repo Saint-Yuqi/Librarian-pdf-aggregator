@@ -18,48 +18,64 @@ import org.jsoup.helper.Validate; // https://jsoup.org/apidocs/org/jsoup/helper/
 import org.jsoup.nodes.Document;  //jsoup.org/apidocs/org/jsoup/nodes/Document.html
 import org.jsoup.nodes.Element; //https://jsoup.org/apidocs/org/jsoup/nodes/Element.html
 import org.jsoup.select.Elements; //https://jsoup.org/apidocs/org/jsoup/select/Elements.html
-
+import org.json.JSONObject;
 public class libgen {
 
-    public void getDownload() throws IOException {
+    public void getDownload(Book book) throws IOException {
         String url = "https://libgen.li";
         System.out.println("Fetching ..." + url);
         Document doc = Jsoup.connect(url)
-                .data("req", "Algebra")
-                .timeout(3000)
-                .post();
-
-        Elements hyperlinks = doc.getElementsByTag("a");
-        for (Element hyperlink : hyperlinks ) {
-            System.out.printf(" * a:%s (%s)\n " , hyperlink.attr("abs:href")  , hyperlink.text());
-        }
+                .data("req", book.getBookName())
+                .get();
 
         Elements links = doc.getElementsByTag("a"); //The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
         System.out.println("\nLinks: " + links.size());
 
-
         for (Element link : links) {
-            if (link.text().equalsIgnoreCase("get")) {
-                System.out.printf(" * a:%s (%s)\n " , link.attr("abs:href")  , link.text());
-                try (BufferedInputStream in = new BufferedInputStream(new URL(url).openStream());
-                     FileOutputStream fileOutputStream = new FileOutputStream("deep.pdf")) {
-                    byte dataBuffer[] = new byte[1024];
-                    int bytesRead;
-                    while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
-                        fileOutputStream.write(dataBuffer, 0, bytesRead);
+            if (link.text().equalsIgnoreCase("libgen")) {
+                System.out.printf(" * a:%s (%s)\n ", link.attr("abs:href"), link.text());
+                if (link.text().equalsIgnoreCase("get")) {
+                    System.out.printf(" * a:%s (%s)\n ", link.attr("abs:href"), link.text());
+                    String path = link.attr("abs:href");
+                    try (BufferedInputStream in = new BufferedInputStream(new URL(path).openStream());
+                         FileOutputStream fileOutputStream = new FileOutputStream(book.getBookName())) {
+                            byte dataBuffer[] = new byte[1024];
+                            int bytesRead;
+                            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                                fileOutputStream.write(dataBuffer, 0, bytesRead);
+                        }
+                    } catch (IOException e) {
+                       System.out.println("Can't get any thing");
                     }
-                } catch (IOException e) {
-                    // handle exception
                 }
+
+
             }
 
         }
     }
+
+    private Book parseBook(JSONObject object) throws IOException {
+        Book book = new Book();
+        String url = "https://libgen.li";
+        System.out.println("Fetching ..." + url);
+        Document doc = Jsoup.connect(url)
+                .data("req", book.getBookName())
+                .get();
+
+        Elements links = doc.getElementsByTag("a"); //The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
+        System.out.println("\nLinks: " + links.size());
+        book.setMD5(object.getString("md5"));
+        return book;
+
+    }
     public static void main(String[] args) throws IOException {
         //String url = "https://libgen.li";
-        //TODO: read about http GET request vs POST request
-        //TODO: read about Jetbrains decompiler
-        //TODO: find out how the Jsoup works (travel through return calls)
+        Book book = new Book();
+        book.setBookName("algebra");
+        libgen lib = new libgen();
+        lib.parseBook(new JSONObject());
+        System.out.println(book.getMD5()+"\n");
 
     }
 }

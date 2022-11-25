@@ -4,18 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89d5a1f9-4721-42cc-8b70-2af3da29e952" name="Changes" comment="Could successfully get the concrete URI to get download">
+    <list default="true" id="89d5a1f9-4721-42cc-8b70-2af3da29e952" name="Changes" comment="try to get MD5">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/libgen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/libgen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/Author.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Bibliography.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/Bibliography.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/Book.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Chapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/Chapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Editor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/Journal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/Journal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aggregator/library/searchable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aggregator/library/searchable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +59,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.toDoOptions"
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices"
   }
 }]]></component>
   <component name="RunManager">
@@ -132,7 +126,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668868001760</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="try to get MD5">
+      <created>1669009668677</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669009668677</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -150,7 +151,8 @@
     <MESSAGE value="try to use one library." />
     <MESSAGE value="Add some comments about this code" />
     <MESSAGE value="Could successfully get the concrete URI to get download" />
-    <option name="LAST_COMMIT_MESSAGE" value="Could successfully get the concrete URI to get download" />
+    <MESSAGE value="try to get MD5" />
+    <option name="LAST_COMMIT_MESSAGE" value="try to get MD5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

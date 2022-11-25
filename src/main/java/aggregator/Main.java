@@ -20,13 +20,16 @@ public class Main {
                 .data("req","Biswa Nath Datta")
                 .get();
 
+        //System.out.println(doc.body());
 
         Elements links = doc.getElementsByTag("a"); //The most important attribute of the <a> element is the href attribute, which indicates the link's destination.
         System.out.println("\nLinks: " + links.size());
 
 
         for (Element link : links) {
-            if (link.text().equalsIgnoreCase("Linear Algebra and its Applications")) {
+
+            if (link.text().equalsIgnoreCase("Linear Algebra and its Applications"))
+            {
                 System.out.printf(" * a:%s (%s)\n " , link.attr("abs:href")  , link.text());
             }
 
